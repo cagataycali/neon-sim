@@ -181,8 +181,8 @@ gst = subprocess.Popen([
          "format=rgba", f"framerate={args.fps}/1",
     "!", "videoconvert",
     "!", "x264enc", f"bitrate={args.bitrate}",
-         "speed-preset=ultrafast", "tune=zerolatency", "key-int-max=30",
-    "!", "h264parse", "config-interval=1",
+         "speed-preset=ultrafast", "tune=zerolatency", "key-int-max=15",
+    "!", "h264parse", "config-interval=-1",
     "!", "mpegtsmux",
     "!", "tcpserversink", "host=0.0.0.0", f"port={args.port}", "sync=false",
 ], stdin=subprocess.PIPE, stdout=sys.stderr, stderr=sys.stderr)
