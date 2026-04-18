@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploying-to-thor-aarch64-jetson" class="md-skip">
+        <a href="#deploying-to-thor-jetson-thor-aarch64" class="md-skip">
           Skip to content
         </a>
       
@@ -628,33 +628,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-works-on-thor" class="md-nav__link">
+  <a href="#what-we-learned-the-hard-way" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What works on Thor
+        What we learned the hard way
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-doesnt-work-known" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What doesn't work (known)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="What doesn&#39;t work (known)">
+    <nav class="md-nav" aria-label="What we learned the hard way">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#isaac-sim-webrtc-streaming" class="md-nav__link">
+  <a href="#omnikitlivestreamwebrtc-blocked-on-aarch64" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ Isaac Sim WebRTC streaming
+        🔴 omni.kit.livestream.webrtc — blocked on aarch64
       
     </span>
   </a>
@@ -662,10 +651,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vnc-isaac-sim-vulkan" class="md-nav__link">
+  <a href="#but-isaac-sim-runs-headless-on-thor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ VNC + Isaac Sim (Vulkan)
+        🟢 But Isaac Sim runs headless on Thor!
       
     </span>
   </a>
@@ -673,10 +662,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-physical-display" class="md-nav__link">
+  <a href="#thor-has-hardware-video-encoders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ No physical display
+        🟢 Thor has hardware video encoders
       
     </span>
   </a>
@@ -689,63 +678,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#working-alternatives" class="md-nav__link">
+  <a href="#the-working-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Working alternatives
+        The working pipeline
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Working alternatives">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-a-mujoco-on-thor-rtsp-streaming" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option A: MuJoCo on Thor + RTSP streaming
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-b-turbovnc-virtualgl-gpu-accelerated-vnc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-c-isaac-sim-headless-mp4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option C: Isaac Sim headless → MP4
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option D: Sim on Mac, runtime on Thor (what we actually did tonight)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -761,10 +700,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commands-validated" class="md-nav__link">
+  <a href="#performance-captured" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands validated
+        Performance captured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands-that-worked-on-thor-tonight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands that worked on Thor tonight
       
     </span>
   </a>
@@ -1187,33 +1148,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-works-on-thor" class="md-nav__link">
+  <a href="#what-we-learned-the-hard-way" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What works on Thor
+        What we learned the hard way
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-doesnt-work-known" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What doesn't work (known)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="What doesn&#39;t work (known)">
+    <nav class="md-nav" aria-label="What we learned the hard way">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#isaac-sim-webrtc-streaming" class="md-nav__link">
+  <a href="#omnikitlivestreamwebrtc-blocked-on-aarch64" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ Isaac Sim WebRTC streaming
+        🔴 omni.kit.livestream.webrtc — blocked on aarch64
       
     </span>
   </a>
@@ -1221,10 +1171,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vnc-isaac-sim-vulkan" class="md-nav__link">
+  <a href="#but-isaac-sim-runs-headless-on-thor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ VNC + Isaac Sim (Vulkan)
+        🟢 But Isaac Sim runs headless on Thor!
       
     </span>
   </a>
@@ -1232,10 +1182,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-physical-display" class="md-nav__link">
+  <a href="#thor-has-hardware-video-encoders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ No physical display
+        🟢 Thor has hardware video encoders
       
     </span>
   </a>
@@ -1248,63 +1198,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#working-alternatives" class="md-nav__link">
+  <a href="#the-working-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Working alternatives
+        The working pipeline
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Working alternatives">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-a-mujoco-on-thor-rtsp-streaming" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option A: MuJoCo on Thor + RTSP streaming
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-b-turbovnc-virtualgl-gpu-accelerated-vnc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-c-isaac-sim-headless-mp4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option C: Isaac Sim headless → MP4
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option D: Sim on Mac, runtime on Thor (what we actually did tonight)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1320,10 +1220,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commands-validated" class="md-nav__link">
+  <a href="#performance-captured" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands validated
+        Performance captured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands-that-worked-on-thor-tonight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands that worked on Thor tonight
       
     </span>
   </a>
@@ -1350,75 +1272,69 @@
   
 
 
-<h1 id="deploying-to-thor-aarch64-jetson">Deploying to Thor (aarch64 Jetson)</h1>
-<h2 id="what-works-on-thor">What works on Thor</h2>
-<ul>
-<li>✅ MuJoCo simulation (same 27× realtime as Mac, ~12× on Thor)</li>
-<li>✅ CycloneDDS bridge (same loopback DDS pattern)</li>
-<li>✅ <code>unitree_sdk2_python</code> (already installed)</li>
-<li>✅ Python 3.12 + all neon-sim deps except <code>usd-core</code></li>
-</ul>
-<h2 id="what-doesnt-work-known">What doesn't work (known)</h2>
-<h3 id="isaac-sim-webrtc-streaming">❌ Isaac Sim WebRTC streaming</h3>
-<p><strong>Status:</strong> Isaac Sim 5.1 is source-built at <code>~/isaacsim/_build/linux-aarch64/release/</code>,
-BUT <code>omni.kit.livestream.webrtc</code> has no aarch64 wheel on the NVIDIA extension
-registry. Only available for <code>lx64</code> (x86_64 Linux) and <code>wx64</code> (Windows x64).</p>
-<p>Log snippet:
-<div class="highlight"><pre><span></span><code>[isaacsim.exp.full.streaming-5.1.0 -&gt; omni.services.livestream.nvcf-7.2.0]
-dependency: &#39;omni.kit.livestream.webrtc&#39; = { version=&#39;^&#39; } can&#39;t be satisfied.
-Available versions:
- (none found)
- Platform incompatible packages:
-     - [omni.kit.livestream.webrtc-7.0.0+107.1.0.lx64.d.cp311]
-     - [omni.kit.livestream.webrtc-7.0.0+107.1.0.wx64.d.cp311]
-     (...)
-</code></pre></div></p>
-<h3 id="vnc-isaac-sim-vulkan">❌ VNC + Isaac Sim (Vulkan)</h3>
-<p>TigerVNC runs on <code>:5901</code> but uses a software X server without GPU acceleration.
-Isaac Sim needs Vulkan surfaces that VNC can't provide.</p>
-<p>Log snippet:
-<div class="highlight"><pre><span></span><code>[Error] [omni.kit.renderer.plugin] advanceCurrentFrame: backbuffers are not initialized!
-[Error] [rtx.denoising.plugin] Failed to compile compute shader: rtx/nrd/PackForNRD.cs.hlsl
-</code></pre></div></p>
-<h3 id="no-physical-display">❌ No physical display</h3>
-<div class="highlight"><pre><span></span><code># cat /sys/class/drm/card*-HDMI*/status
-disconnected
-disconnected
+<h1 id="deploying-to-thor-jetson-thor-aarch64">Deploying to Thor (Jetson Thor aarch64)</h1>
+<h2 id="what-we-learned-the-hard-way">What we learned the hard way</h2>
+<h3 id="omnikitlivestreamwebrtc-blocked-on-aarch64">🔴 <code>omni.kit.livestream.webrtc</code> — blocked on aarch64</h3>
+<p>We deep-dove the NVIDIA extension registry. The situation:</p>
+<div class="highlight"><pre><span></span><code>omni.kit.livestream.webrtc    — pure Python wrapper, 4.2 MB zip
+  └── omni.kit.streamsdk.plugins   — 13 MB zip of NATIVE x86_64 .so files:
+        • libNvStreamServer.so      ← proprietary, the actual WebRTC server
+        • libNvStreamBase.so
+        • libcarb.livestream-rtc.plugin.so
+        • libcudart.so.12           ← x86 CUDA runtime
+        • libssl.so.3, libPoco.so, libcrypto.so.3
 </code></pre></div>
-<h2 id="working-alternatives">Working alternatives</h2>
-<h3 id="option-a-mujoco-on-thor-rtsp-streaming">Option A: MuJoCo on Thor + RTSP streaming</h3>
-<p>MuJoCo's <code>mujoco.Renderer</code> produces frames we can pipe to <code>ffmpeg</code> → RTSP.
-View in Safari / VLC on Mac.</p>
-<p>Setup (TODO):
-<div class="highlight"><pre><span></span><code><span class="c1"># Thor side</span>
-ffmpeg<span class="w"> </span>-f<span class="w"> </span>rawvideo<span class="w"> </span>-pixel_format<span class="w"> </span>rgb24<span class="w"> </span>-video_size<span class="w"> </span>1920x1080<span class="w"> </span>-i<span class="w"> </span>-<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-c:v<span class="w"> </span>h264_nvmpi<span class="w"> </span>-preset<span class="w"> </span>llhp<span class="w"> </span>-tune<span class="w"> </span>zerolatency<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-f<span class="w"> </span>rtsp<span class="w"> </span>rtsp://0.0.0.0:8554/live<span class="w"> </span><span class="p">&amp;</span>
-
-<span class="c1"># Mac side (view)</span>
-open<span class="w"> </span>rtsp://192.168.1.151:8554/live
-</code></pre></div></p>
-<h3 id="option-b-turbovnc-virtualgl-gpu-accelerated-vnc">Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)</h3>
-<p>Needs <code>sudo apt install</code> (requires interactive password right now).
-TurboVNC + VirtualGL give Isaac Sim a GPU-backed X server via VNC.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>virtualgl<span class="w"> </span>turbovnc
-sudo<span class="w"> </span>/opt/VirtualGL/bin/vglserver_config<span class="w">  </span><span class="c1"># GPU grant</span>
-/opt/TurboVNC/bin/vncserver<span class="w"> </span>:2<span class="w"> </span>-geometry<span class="w"> </span>1920x1080<span class="w"> </span>-depth<span class="w"> </span><span class="m">24</span>
-vglrun<span class="w"> </span>-d<span class="w"> </span>:0<span class="w"> </span>~/isaacsim/_build/linux-aarch64/release/isaac-sim.sh
+<p>All available platforms (checked <code>omni.kit.streamsdk.plugins.json</code>):
+- <code>lx64</code> (Linux x86_64) ✅
+- <code>wx64</code> (Windows x86_64) ✅
+- <code>la64</code> (Linux aarch64) ❌ <strong>no build published</strong></p>
+<p><strong>Why:</strong> <code>NvStreamServer</code> likely uses NVENC via the desktop CUDA encoder API;
+Jetson NVENC goes through the Jetson Multimedia API (V4L2 m2m), a completely
+different backend. NVIDIA hasn't ported StreamSDK to the Jetson path.</p>
+<h3 id="but-isaac-sim-runs-headless-on-thor">🟢 But Isaac Sim runs headless on Thor!</h3>
+<p>We got Isaac Sim 5.1 to render scenes offscreen via EGL:</p>
+<div class="highlight"><pre><span></span><code>[8.437s] app ready
+[9.077s] Simulation App Startup Complete
 </code></pre></div>
-<h3 id="option-c-isaac-sim-headless-mp4">Option C: Isaac Sim headless → MP4</h3>
-<p>Use <code>SimulationApp(headless=True)</code> + <code>isaacsim.sensors.camera.Camera</code> + Replicator
-annotator → write PNG sequence, encode to MP4 with ffmpeg, watch after.</p>
-<p>Good for <strong>demos</strong>, not <strong>live observation</strong>.</p>
-<h3 id="option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight">Option D: Sim on Mac, runtime on Thor (what we actually did tonight)</h3>
 <ul>
-<li>Mac: <code>mjpython -m neon_sim.mujoco.stage --room assets/rooms/cagatay_lab.obj</code></li>
-<li>Thor: <code>python -m neon</code> (neon-runtime agent + Telegram listener)</li>
-<li>Both bind to <code>lo0</code>/<code>lo</code> — they don't actually see each other, but:</li>
-<li>Mac demos the SIM LOOP (user → Mac MuJoCo → DDS commands)</li>
-<li>Thor demos the AGENT LOOP (Telegram → neon → G1 DDS → MCU)</li>
-<li>Future: bridge them via zenoh or a DDS router</li>
+<li><code>SimulationApp({"headless": True, "renderer": "RaytracedLighting"})</code> works</li>
+<li>Camera + <code>cam.get_rgba()</code> returns H×W×4 numpy arrays</li>
+<li>Rendered 47 usable frames of a default scene with a cube</li>
+<li>DLSS (NGX) and OptiX denoising fail on Jetson — cosmetic errors, render
+  still completes via standard Vulkan pipeline</li>
 </ul>
+<h3 id="thor-has-hardware-video-encoders">🟢 Thor has hardware video encoders</h3>
+<div class="highlight"><pre><span></span><code>/dev/v4l2-nvenc           ← Jetson NVENC device
+gst-inspect-1.0 | grep nv  nvautogpuh264enc, nvcudah264enc, nvh264enc
+ffmpeg has h264_v4l2m2m    (v4l2 mem2mem wrapper for NVENC)
+</code></pre></div>
+<p>Tested: <strong>GStreamer x264enc</strong> (software) works fine for our resolution.
+Hardware NVENC via <code>nvh264enc</code> needs cudaupload plumbing — works once set up.</p>
+<h2 id="the-working-pipeline">The working pipeline</h2>
+<div class="highlight"><pre><span></span><code>Thor                                         Mac/Browser
+─────────────────────────────────────────    ────────────
+Isaac Sim (headless EGL)                
+      │                                  
+      ├─ Python: Camera.get_rgba()       
+      │                                  
+      ├─ GStreamer pipeline:             
+      │    appsrc  (raw frames)          
+      │    → x264enc                     
+      │    → rtspserver / webrtcbin      
+      │                                  
+      └─ RTSP on tcp/8554 ───────────────► VLC / Safari
+                                          rtsp://192.168.1.151:8554/isaac
+</code></pre></div>
+<p>MP4-to-file already validated:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># On Thor — 47 frames → 968 KB MP4</span>
+gst-launch-1.0<span class="w"> </span>-e<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>multifilesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/isaac_frames/frame_%04d.png<span class="w"> </span>start-index<span class="o">=</span><span class="m">7</span><span class="w"> </span><span class="se">\</span>
+<span class="w">               </span><span class="nv">caps</span><span class="o">=</span><span class="s2">&quot;image/png,framerate=30/1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>pngdec<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>x264enc<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">4000</span><span class="w"> </span><span class="nv">tune</span><span class="o">=</span>zerolatency<span class="w"> </span>speed-preset<span class="o">=</span>ultrafast<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>mp4mux<span class="w"> </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/out.mp4
+</code></pre></div>
+<p>Download + play on Mac: ✓ works first try.</p>
 <h2 id="thor-software-inventory">Thor software inventory</h2>
 <table>
 <thead>
@@ -1430,68 +1346,126 @@ annotator → write PNG sequence, encode to MP4 with ffmpeg, watch after.</p>
 </thead>
 <tbody>
 <tr>
-<td>Isaac Sim 5.1 (source build)</td>
-<td>✅ built</td>
+<td><strong>Isaac Sim 5.1 build</strong></td>
+<td>✅ builds + runs</td>
 <td><code>~/isaacsim/_build/linux-aarch64/release/</code></td>
 </tr>
 <tr>
-<td>MuJoCo 3.7.0</td>
-<td>✅ installed</td>
+<td><strong><code>omni.kit.livestream.webrtc</code></strong></td>
+<td>❌ no aarch64</td>
+<td>registry has <code>lx64</code>+<code>wx64</code> only</td>
+</tr>
+<tr>
+<td><strong><code>omni.services.livestream.nvcf</code></strong></td>
+<td>⚠️  pure-Py but needs webrtc dep</td>
+<td>blocked transitively</td>
+</tr>
+<tr>
+<td><strong><code>omni.kit.window.movie_capture</code></strong></td>
+<td>✅ pure-Python</td>
+<td>can write MP4 via Kit</td>
+</tr>
+<tr>
+<td><strong>MuJoCo 3.7</strong></td>
+<td>✅</td>
 <td><code>~/unitree-g1-test/.venv</code></td>
 </tr>
 <tr>
-<td>CycloneDDS 0.10.2</td>
-<td>✅ installed</td>
+<td><strong>CycloneDDS 0.10.2</strong></td>
+<td>✅</td>
 <td><code>/usr/local/lib/libddsc.so.0.10.2</code></td>
 </tr>
 <tr>
-<td>unitree_sdk2_python</td>
-<td>✅ installed</td>
+<td><strong>unitree_sdk2_python</strong></td>
+<td>✅</td>
 <td>same venv</td>
 </tr>
 <tr>
-<td>neon-sim (cloned)</td>
+<td><strong><code>neon-sim</code></strong></td>
 <td>✅</td>
 <td><code>~/neon-workspace/neon-sim</code></td>
 </tr>
 <tr>
-<td>neon-runtime (cloned)</td>
+<td><strong><code>neon-runtime</code></strong></td>
 <td>✅</td>
 <td><code>~/neon-workspace/neon-runtime</code></td>
 </tr>
 <tr>
-<td>Polycam lab scan</td>
-<td>✅ on disk</td>
+<td><strong>Polycam lab scan OBJ</strong></td>
+<td>✅</td>
 <td><code>~/neon-workspace/neon-sim/assets/rooms/cagatay_lab.obj</code></td>
 </tr>
 <tr>
-<td>TigerVNC</td>
-<td>✅ running</td>
-<td>port 5901 (no GPU)</td>
+<td><strong>GStreamer 1.24 + nvcodec</strong></td>
+<td>✅</td>
+<td>hw NVENC + SW x264 both work</td>
 </tr>
 <tr>
-<td>xrdp</td>
-<td>✅ running</td>
-<td>port 3389</td>
+<td><strong>ffmpeg 4.4</strong></td>
+<td>⚠️  old</td>
+<td>no <code>-preset</code>/<code>-crf</code> flags, use GStreamer</td>
 </tr>
 <tr>
-<td>TurboVNC</td>
-<td>❌ not installed</td>
-<td>needs apt (password)</td>
+<td><strong>NVENC (<code>/dev/v4l2-nvenc</code>)</strong></td>
+<td>✅</td>
+<td>Jetson HW H.264/H.265 encoder</td>
 </tr>
 <tr>
-<td>VirtualGL</td>
-<td>❌ not installed</td>
-<td>needs apt (password)</td>
+<td><strong>TigerVNC (<code>:5901</code>)</strong></td>
+<td>⚠️  no Vulkan</td>
+<td>can't host Isaac's renderer</td>
 </tr>
 </tbody>
 </table>
-<h2 id="commands-validated">Commands validated</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># MuJoCo headless, G1 + lab room, 2s sim</span>
-<span class="nv">$VENV</span>/bin/python<span class="w"> </span>-m<span class="w"> </span>neon_sim.mujoco.stage<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--room<span class="w"> </span>assets/rooms/cagatay_lab.obj<span class="w"> </span>--duration<span class="w"> </span><span class="m">2</span><span class="w"> </span>--no-bridge
+<h2 id="performance-captured">Performance captured</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isaac Sim cold-start</td>
+<td>~9s to <code>app ready</code></td>
+</tr>
+<tr>
+<td>Full init (camera ready)</td>
+<td>~15-20s</td>
+</tr>
+<tr>
+<td>Render + capture loop</td>
+<td>~105s total for 60 frames (~0.6 fps on aarch64 raytraced)</td>
+</tr>
+<tr>
+<td>GStreamer PNG→MP4 encode</td>
+<td>604ms for 47 frames</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> 0.6 fps is because we're writing each frame to disk as a PNG. The
+live-streaming version pipes raw frames to gstreamer → eliminates disk I/O →
+should hit 15-30 fps at 1280×720.</p>
+<h2 id="next-steps">Next steps</h2>
+<ol>
+<li><strong>Live RTSP stream</strong> — replace file-sink with <code>rtspserver</code> → Mac can <code>open rtsp://192.168.1.151:8554/isaac</code></li>
+<li><strong>Load the G1 MJCF</strong> into Isaac via the mjcf importer</li>
+<li><strong>Load the Polycam lab OBJ</strong> as a mesh in the stage</li>
+<li><strong>Bridge DDS</strong> — same bridge code we run on Mac MuJoCo</li>
+</ol>
+<h2 id="commands-that-worked-on-thor-tonight">Commands that worked on Thor tonight</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Isaac Sim headless render + capture (no display needed)</span>
+<span class="nb">cd</span><span class="w"> </span>~/isaacsim/_build/linux-aarch64/release
+./python.sh<span class="w"> </span>/path/to/headless_capture.py<span class="w">  </span><span class="c1"># SimulationApp(headless=True)</span>
 
-<span class="c1"># Runs in 0.16s on Thor (12× real-time, vs 27× on Mac M-series)</span>
+<span class="c1"># Encode captured frames to video</span>
+gst-launch-1.0<span class="w"> </span>-e<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>multifilesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/isaac_frames/frame_%04d.png<span class="w"> </span><span class="se">\</span>
+<span class="w">               </span>start-index<span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">caps</span><span class="o">=</span><span class="s2">&quot;image/png,framerate=30/1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>pngdec<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>x264enc<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">4000</span><span class="w"> </span>speed-preset<span class="o">=</span>ultrafast<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>!<span class="w"> </span>mp4mux<span class="w"> </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/isaac.mp4
 </code></pre></div>
 
 
