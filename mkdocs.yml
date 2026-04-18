@@ -1,0 +1,74 @@
+site_name: neon-sim
+site_url: https://cagataycali.github.io/neon-sim
+site_description: Isaac Sim + Polycam room bridge for Unitree G1
+repo_url: https://github.com/cagataycali/neon-sim
+edit_uri: edit/main/docs/
+copyright: "MIT · <a href='https://github.com/cagataycali/neon-runtime'>pairs with neon-runtime</a>"
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/robot-outline
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - content.tabs.link
+    - search.suggest
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quickstart: quickstart.md
+      - Polycam workflow: polycam.md
+      - Backends (Isaac vs MuJoCo): backends.md
+  - Architecture:
+      - Overview: architecture.md
+      - DDS bridge: dds-bridge.md
+      - Coordinate systems: coordinates.md
+  - Guides:
+      - Preprocessing scans: preprocessing.md
+      - Running headless: headless.md
+      - Multi-room scenes: multi-room.md
+  - About:
+      - Related projects: related.md

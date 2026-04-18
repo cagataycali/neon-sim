@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neon-sim"
+version = "0.1.0"
+description = "Isaac Sim + Polycam room bridge for Unitree G1 — pairs with neon-runtime"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Cagatay Cali", email = "cagataycali@icloud.com"}]
+license = {text = "MIT"}
+keywords = ["robotics", "simulation", "isaac-sim", "mujoco", "unitree", "g1", "polycam"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+  "usd-core>=23.5",
+  "numpy>=1.24",
+  "cyclonedds>=0.10",
+]
+
+[project.optional-dependencies]
+mujoco = ["mujoco>=3.0"]
+dev = ["pytest>=7", "ruff>=0.1"]
+
+[project.scripts]
+neon-sim-convert = "neon_sim.cli:convert_cmd"
+
+[project.urls]
+Homepage = "https://github.com/cagataycali/neon-sim"
+Documentation = "https://cagataycali.github.io/neon-sim"
+Runtime = "https://github.com/cagataycali/neon-runtime"
+
+[tool.setuptools.packages.find]
+include = ["neon_sim*"]

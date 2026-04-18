@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.DS_Store
+
+# Sim build artifacts
+*_sim.usd
+*_sim.usdc
+
+# Generated from USDZ — can be recreated from assets/rooms/*.usdz
+assets/rooms/*.obj
+
+# Site
+site/
+
+# Large binary scans — we keep only the .usdz originals for reference
+# But those are YOUR scans, so don't commit someone else's room.
+# Uncomment this next line to skip committing scans:
+# assets/rooms/*.usdz
+assets/rooms/*.usdz
+assets/rooms/textures/
