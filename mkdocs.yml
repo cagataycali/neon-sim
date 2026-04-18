@@ -63,6 +63,7 @@ nav:
       - Polycam workflow: polycam.md
       - Backends (Isaac vs MuJoCo): backends.md
       - First run (M-series Mac): first-run.md
+      - Thor deployment notes: thor-deployment.md
   - Architecture:
       - Overview: architecture.md
       - DDS bridge: dds-bridge.md
