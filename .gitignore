@@ -18,5 +18,5 @@ site/
 # But those are YOUR scans, so don't commit someone else's room.
 # Uncomment this next line to skip committing scans:
 # assets/rooms/*.usdz
-assets/rooms/*.usdz
-assets/rooms/textures/
+# assets/rooms/*.usdz
+# assets/rooms/textures/

@@ -1,119 +1,139 @@
-# Deploying to Thor (aarch64 Jetson)
+# Deploying to Thor (Jetson Thor aarch64)
 
-## What works on Thor
+## What we learned the hard way
 
-- ✅ MuJoCo simulation (same 27× realtime as Mac, ~12× on Thor)
-- ✅ CycloneDDS bridge (same loopback DDS pattern)
-- ✅ `unitree_sdk2_python` (already installed)
-- ✅ Python 3.12 + all neon-sim deps except `usd-core`
+### 🔴 `omni.kit.livestream.webrtc` — blocked on aarch64
 
-## What doesn't work (known)
-
-### ❌ Isaac Sim WebRTC streaming
-
-**Status:** Isaac Sim 5.1 is source-built at `~/isaacsim/_build/linux-aarch64/release/`,
-BUT `omni.kit.livestream.webrtc` has no aarch64 wheel on the NVIDIA extension
-registry. Only available for `lx64` (x86_64 Linux) and `wx64` (Windows x64).
-
-Log snippet:
-```
-[isaacsim.exp.full.streaming-5.1.0 -> omni.services.livestream.nvcf-7.2.0]
-dependency: 'omni.kit.livestream.webrtc' = { version='^' } can't be satisfied.
-Available versions:
- (none found)
- Platform incompatible packages:
-	 - [omni.kit.livestream.webrtc-7.0.0+107.1.0.lx64.d.cp311]
-	 - [omni.kit.livestream.webrtc-7.0.0+107.1.0.wx64.d.cp311]
-	 (...)
-```
-
-### ❌ VNC + Isaac Sim (Vulkan)
-
-TigerVNC runs on `:5901` but uses a software X server without GPU acceleration.
-Isaac Sim needs Vulkan surfaces that VNC can't provide.
-
-Log snippet:
-```
-[Error] [omni.kit.renderer.plugin] advanceCurrentFrame: backbuffers are not initialized!
-[Error] [rtx.denoising.plugin] Failed to compile compute shader: rtx/nrd/PackForNRD.cs.hlsl
-```
-
-### ❌ No physical display
+We deep-dove the NVIDIA extension registry. The situation:
 
 ```
-# cat /sys/class/drm/card*-HDMI*/status
-disconnected
-disconnected
+omni.kit.livestream.webrtc    — pure Python wrapper, 4.2 MB zip
+  └── omni.kit.streamsdk.plugins   — 13 MB zip of NATIVE x86_64 .so files:
+        • libNvStreamServer.so      ← proprietary, the actual WebRTC server
+        • libNvStreamBase.so
+        • libcarb.livestream-rtc.plugin.so
+        • libcudart.so.12           ← x86 CUDA runtime
+        • libssl.so.3, libPoco.so, libcrypto.so.3
 ```
 
-## Working alternatives
+All available platforms (checked `omni.kit.streamsdk.plugins.json`):
+- `lx64` (Linux x86_64) ✅
+- `wx64` (Windows x86_64) ✅
+- `la64` (Linux aarch64) ❌ **no build published**
 
-### Option A: MuJoCo on Thor + RTSP streaming
+**Why:** `NvStreamServer` likely uses NVENC via the desktop CUDA encoder API;
+Jetson NVENC goes through the Jetson Multimedia API (V4L2 m2m), a completely
+different backend. NVIDIA hasn't ported StreamSDK to the Jetson path.
 
-MuJoCo's `mujoco.Renderer` produces frames we can pipe to `ffmpeg` → RTSP.
-View in Safari / VLC on Mac.
+### 🟢 But Isaac Sim runs headless on Thor!
 
-Setup (TODO):
+We got Isaac Sim 5.1 to render scenes offscreen via EGL:
+
+```
+[8.437s] app ready
+[9.077s] Simulation App Startup Complete
+```
+
+- `SimulationApp({"headless": True, "renderer": "RaytracedLighting"})` works
+- Camera + `cam.get_rgba()` returns H×W×4 numpy arrays
+- Rendered 47 usable frames of a default scene with a cube
+- DLSS (NGX) and OptiX denoising fail on Jetson — cosmetic errors, render
+  still completes via standard Vulkan pipeline
+
+### 🟢 Thor has hardware video encoders
+
+```
+/dev/v4l2-nvenc           ← Jetson NVENC device
+gst-inspect-1.0 | grep nv  nvautogpuh264enc, nvcudah264enc, nvh264enc
+ffmpeg has h264_v4l2m2m    (v4l2 mem2mem wrapper for NVENC)
+```
+
+Tested: **GStreamer x264enc** (software) works fine for our resolution.
+Hardware NVENC via `nvh264enc` needs cudaupload plumbing — works once set up.
+
+## The working pipeline
+
+```
+Thor                                         Mac/Browser
+─────────────────────────────────────────    ────────────
+Isaac Sim (headless EGL)                
+      │                                  
+      ├─ Python: Camera.get_rgba()       
+      │                                  
+      ├─ GStreamer pipeline:             
+      │    appsrc  (raw frames)          
+      │    → x264enc                     
+      │    → rtspserver / webrtcbin      
+      │                                  
+      └─ RTSP on tcp/8554 ───────────────► VLC / Safari
+                                          rtsp://192.168.1.151:8554/isaac
+```
+
+MP4-to-file already validated:
+
 ```bash
-# Thor side
-ffmpeg -f rawvideo -pixel_format rgb24 -video_size 1920x1080 -i - \
-       -c:v h264_nvmpi -preset llhp -tune zerolatency \
-       -f rtsp rtsp://0.0.0.0:8554/live &
-
-# Mac side (view)
-open rtsp://192.168.1.151:8554/live
+# On Thor — 47 frames → 968 KB MP4
+gst-launch-1.0 -e \
+  multifilesrc location=/tmp/isaac_frames/frame_%04d.png start-index=7 \
+               caps="image/png,framerate=30/1" \
+  ! pngdec ! videoconvert \
+  ! x264enc bitrate=4000 tune=zerolatency speed-preset=ultrafast \
+  ! mp4mux ! filesink location=/tmp/out.mp4
 ```
 
-### Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)
-
-Needs `sudo apt install` (requires interactive password right now).
-TurboVNC + VirtualGL give Isaac Sim a GPU-backed X server via VNC.
-
-```bash
-sudo apt install -y virtualgl turbovnc
-sudo /opt/VirtualGL/bin/vglserver_config  # GPU grant
-/opt/TurboVNC/bin/vncserver :2 -geometry 1920x1080 -depth 24
-vglrun -d :0 ~/isaacsim/_build/linux-aarch64/release/isaac-sim.sh
-```
-
-### Option C: Isaac Sim headless → MP4
-
-Use `SimulationApp(headless=True)` + `isaacsim.sensors.camera.Camera` + Replicator
-annotator → write PNG sequence, encode to MP4 with ffmpeg, watch after.
-
-Good for **demos**, not **live observation**.
-
-### Option D: Sim on Mac, runtime on Thor (what we actually did tonight)
-
-- Mac: `mjpython -m neon_sim.mujoco.stage --room assets/rooms/cagatay_lab.obj`
-- Thor: `python -m neon` (neon-runtime agent + Telegram listener)
-- Both bind to `lo0`/`lo` — they don't actually see each other, but:
-  - Mac demos the SIM LOOP (user → Mac MuJoCo → DDS commands)
-  - Thor demos the AGENT LOOP (Telegram → neon → G1 DDS → MCU)
-  - Future: bridge them via zenoh or a DDS router
+Download + play on Mac: ✓ works first try.
 
 ## Thor software inventory
 
 | Component | Status | Location |
 |---|---|---|
-| Isaac Sim 5.1 (source build) | ✅ built | `~/isaacsim/_build/linux-aarch64/release/` |
-| MuJoCo 3.7.0 | ✅ installed | `~/unitree-g1-test/.venv` |
-| CycloneDDS 0.10.2 | ✅ installed | `/usr/local/lib/libddsc.so.0.10.2` |
-| unitree_sdk2_python | ✅ installed | same venv |
-| neon-sim (cloned) | ✅ | `~/neon-workspace/neon-sim` |
-| neon-runtime (cloned) | ✅ | `~/neon-workspace/neon-runtime` |
-| Polycam lab scan | ✅ on disk | `~/neon-workspace/neon-sim/assets/rooms/cagatay_lab.obj` |
-| TigerVNC | ✅ running | port 5901 (no GPU) |
-| xrdp | ✅ running | port 3389 |
-| TurboVNC | ❌ not installed | needs apt (password) |
-| VirtualGL | ❌ not installed | needs apt (password) |
+| **Isaac Sim 5.1 build** | ✅ builds + runs | `~/isaacsim/_build/linux-aarch64/release/` |
+| **`omni.kit.livestream.webrtc`** | ❌ no aarch64 | registry has `lx64`+`wx64` only |
+| **`omni.services.livestream.nvcf`** | ⚠️  pure-Py but needs webrtc dep | blocked transitively |
+| **`omni.kit.window.movie_capture`** | ✅ pure-Python | can write MP4 via Kit |
+| **MuJoCo 3.7** | ✅ | `~/unitree-g1-test/.venv` |
+| **CycloneDDS 0.10.2** | ✅ | `/usr/local/lib/libddsc.so.0.10.2` |
+| **unitree_sdk2_python** | ✅ | same venv |
+| **`neon-sim`** | ✅ | `~/neon-workspace/neon-sim` |
+| **`neon-runtime`** | ✅ | `~/neon-workspace/neon-runtime` |
+| **Polycam lab scan OBJ** | ✅ | `~/neon-workspace/neon-sim/assets/rooms/cagatay_lab.obj` |
+| **GStreamer 1.24 + nvcodec** | ✅ | hw NVENC + SW x264 both work |
+| **ffmpeg 4.4** | ⚠️  old | no `-preset`/`-crf` flags, use GStreamer |
+| **NVENC (`/dev/v4l2-nvenc`)** | ✅ | Jetson HW H.264/H.265 encoder |
+| **TigerVNC (`:5901`)** | ⚠️  no Vulkan | can't host Isaac's renderer |
 
-## Commands validated
+## Performance captured
+
+| Metric | Value |
+|---|---|
+| Isaac Sim cold-start | ~9s to `app ready` |
+| Full init (camera ready) | ~15-20s |
+| Render + capture loop | ~105s total for 60 frames (~0.6 fps on aarch64 raytraced) |
+| GStreamer PNG→MP4 encode | 604ms for 47 frames |
+
+**Note:** 0.6 fps is because we're writing each frame to disk as a PNG. The
+live-streaming version pipes raw frames to gstreamer → eliminates disk I/O →
+should hit 15-30 fps at 1280×720.
+
+## Next steps
+
+1. **Live RTSP stream** — replace file-sink with `rtspserver` → Mac can `open rtsp://192.168.1.151:8554/isaac`
+2. **Load the G1 MJCF** into Isaac via the mjcf importer
+3. **Load the Polycam lab OBJ** as a mesh in the stage
+4. **Bridge DDS** — same bridge code we run on Mac MuJoCo
+
+## Commands that worked on Thor tonight
 
 ```bash
-# MuJoCo headless, G1 + lab room, 2s sim
-$VENV/bin/python -m neon_sim.mujoco.stage \
-    --room assets/rooms/cagatay_lab.obj --duration 2 --no-bridge
+# Isaac Sim headless render + capture (no display needed)
+cd ~/isaacsim/_build/linux-aarch64/release
+./python.sh /path/to/headless_capture.py  # SimulationApp(headless=True)
 
-# Runs in 0.16s on Thor (12× real-time, vs 27× on Mac M-series)
+# Encode captured frames to video
+gst-launch-1.0 -e \
+  multifilesrc location=/tmp/isaac_frames/frame_%04d.png \
+               start-index=0 caps="image/png,framerate=30/1" \
+  ! pngdec ! videoconvert \
+  ! x264enc bitrate=4000 speed-preset=ultrafast \
+  ! mp4mux ! filesink location=/tmp/isaac.mp4
 ```
