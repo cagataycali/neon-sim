@@ -18,14 +18,15 @@ classifiers = [
 ]
 
 dependencies = [
-  "usd-core>=23.5",
   "numpy>=1.24",
-  "cyclonedds>=0.10",
+  "trimesh>=4.0",  # USDZ→OBJ fallback without usd-core (for aarch64)
 ]
 
 [project.optional-dependencies]
 mujoco = ["mujoco>=3.0"]
-dev = ["pytest>=7", "ruff>=0.1"]
+isaac  = ["usd-core>=23.5"]  # optional — Isaac Sim ships its own pxr; aarch64 has no wheel
+dds    = ["cyclonedds>=0.10"]
+dev    = ["pytest>=7", "ruff>=0.1"]
 
 [project.scripts]
 neon-sim-convert = "neon_sim.cli:convert_cmd"
