@@ -217,15 +217,21 @@ class DDSBridge:
         self.state.lowstate_msgs_sent += 1
 
     def _publish_bmsstate(self):
-        """Publish fake battery state (always at 85%)."""
+        """Publish fake battery state (always at 85%).
+
+        Real BmsState_ fields (from unitree_hg.msg.dds_):
+          soc, soh, cycle, current, temperature[12], cell_vol[27], ...
+        """
         if BmsState_ is None:
             return
         msg = unitree_hg_msg_dds__BmsState_()
         msg.soc = 85  # 85% state of charge
+        msg.soh = 100  # state of health
         msg.current = 0
         msg.cycle = 100
-        msg.bq_ntc[0] = 30  # battery temp
-        msg.bq_ntc[1] = 30
+        # temperature is a list of 12 sensor values in 0.1 °C units (per SDK convention)
+        for i in range(12):
+            msg.temperature[i] = 30
         self.bmsstate_pub.Write(msg)
 
     # ------------------------------------------------------------------
