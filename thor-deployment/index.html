@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cagataycali.github.io/neon-sim/backends/">
+        <link rel="canonical" href="https://cagataycali.github.io/neon-sim/thor-deployment/">
       
       
-        <link rel="prev" href="../polycam/">
+        <link rel="prev" href="../first-run/">
       
       
-        <link rel="next" href="../first-run/">
+        <link rel="next" href="../architecture/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Backends (Isaac vs MuJoCo) - neon-sim</title>
+        <title>Thor deployment notes - neon-sim</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#isaac-sim-vs-mujoco" class="md-skip">
+        <a href="#deploying-to-thor-aarch64-jetson" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backends (Isaac vs MuJoCo)
+              Thor deployment notes
             
           </span>
         </div>
@@ -509,37 +509,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Backends (Isaac vs MuJoCo)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../backends/" class="md-nav__link">
         
   
   
@@ -555,148 +528,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#isaac-sim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Isaac Sim 🥇
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Isaac Sim 🥇">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pros" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mujoco" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MuJoCo 🪶
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MuJoCo 🪶">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pros_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#shared-the-dds-bridge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Shared: The DDS bridge
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#which-should-i-start-with" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Which should I start with?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -734,10 +565,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../thor-deployment/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thor deployment notes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -753,6 +611,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-works-on-thor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What works on Thor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-doesnt-work-known" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What doesn't work (known)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What doesn&#39;t work (known)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isaac-sim-webrtc-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Isaac Sim WebRTC streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vnc-isaac-sim-vulkan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ VNC + Isaac Sim (Vulkan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-physical-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ No physical display
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working alternatives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working alternatives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-mujoco-on-thor-rtsp-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: MuJoCo on Thor + RTSP streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-turbovnc-virtualgl-gpu-accelerated-vnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-isaac-sim-headless-mp4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option C: Isaac Sim headless → MP4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option D: Sim on Mac, runtime on Thor (what we actually did tonight)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thor-software-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thor software inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands-validated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands validated
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1165,22 +1187,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#isaac-sim" class="md-nav__link">
+  <a href="#what-works-on-thor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Isaac Sim 🥇
+        What works on Thor
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Isaac Sim 🥇">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-doesnt-work-known" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What doesn't work (known)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What doesn&#39;t work (known)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pros" class="md-nav__link">
+  <a href="#isaac-sim-webrtc-streaming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        ❌ Isaac Sim WebRTC streaming
       
     </span>
   </a>
@@ -1188,10 +1221,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons" class="md-nav__link">
+  <a href="#vnc-isaac-sim-vulkan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
+        ❌ VNC + Isaac Sim (Vulkan)
       
     </span>
   </a>
@@ -1199,10 +1232,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#no-physical-display" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install
+        ❌ No physical display
       
     </span>
   </a>
@@ -1215,22 +1248,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mujoco" class="md-nav__link">
+  <a href="#working-alternatives" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MuJoCo 🪶
+        Working alternatives
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="MuJoCo 🪶">
+    <nav class="md-nav" aria-label="Working alternatives">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pros_1" class="md-nav__link">
+  <a href="#option-a-mujoco-on-thor-rtsp-streaming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        Option A: MuJoCo on Thor + RTSP streaming
       
     </span>
   </a>
@@ -1238,10 +1271,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons_1" class="md-nav__link">
+  <a href="#option-b-turbovnc-virtualgl-gpu-accelerated-vnc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
+        Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)
       
     </span>
   </a>
@@ -1249,10 +1282,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#install_1" class="md-nav__link">
+  <a href="#option-c-isaac-sim-headless-mp4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install
+        Option C: Isaac Sim headless → MP4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option D: Sim on Mac, runtime on Thor (what we actually did tonight)
       
     </span>
   </a>
@@ -1265,10 +1309,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#shared-the-dds-bridge" class="md-nav__link">
+  <a href="#thor-software-inventory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Shared: The DDS bridge
+        Thor software inventory
       
     </span>
   </a>
@@ -1276,10 +1320,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#which-should-i-start-with" class="md-nav__link">
+  <a href="#commands-validated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Which should I start with?
+        Commands validated
       
     </span>
   </a>
@@ -1306,62 +1350,149 @@
   
 
 
-<h1 id="isaac-sim-vs-mujoco">Isaac Sim vs MuJoCo</h1>
-<p>Pick your fighter:</p>
-<h2 id="isaac-sim">Isaac Sim 🥇</h2>
-<p><strong>Use if</strong>: you have an NVIDIA GPU (RTX series), running Linux or WSL.</p>
-<h3 id="pros">Pros</h3>
+<h1 id="deploying-to-thor-aarch64-jetson">Deploying to Thor (aarch64 Jetson)</h1>
+<h2 id="what-works-on-thor">What works on Thor</h2>
 <ul>
-<li>Native <code>.usdz</code> import — no OBJ conversion</li>
-<li>PBR rendering with your scan textures</li>
-<li>Unitree ships an official G1 USD model (in <code>isaacsim.robot.assets</code>)</li>
-<li>Omniverse bridge supports ROS 2 / DDS natively</li>
-<li>Reinforcement learning ready (Isaac Lab)</li>
+<li>✅ MuJoCo simulation (same 27× realtime as Mac, ~12× on Thor)</li>
+<li>✅ CycloneDDS bridge (same loopback DDS pattern)</li>
+<li>✅ <code>unitree_sdk2_python</code> (already installed)</li>
+<li>✅ Python 3.12 + all neon-sim deps except <code>usd-core</code></li>
 </ul>
-<h3 id="cons">Cons</h3>
-<ul>
-<li>Requires NVIDIA RTX hardware (not M-series Mac)</li>
-<li>Heavy install (~30GB)</li>
-<li>Linux-first (Windows via WSL is flaky)</li>
-</ul>
-<h3 id="install">Install</h3>
-<p>https://developer.nvidia.com/isaac-sim → pick latest 4.x.</p>
-<p>Launch:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">NEON_SIM_BACKEND</span><span class="o">=</span>isaac<span class="w"> </span>./scripts/launch_sim.sh<span class="w"> </span>assets/rooms/my_room.usdz
+<h2 id="what-doesnt-work-known">What doesn't work (known)</h2>
+<h3 id="isaac-sim-webrtc-streaming">❌ Isaac Sim WebRTC streaming</h3>
+<p><strong>Status:</strong> Isaac Sim 5.1 is source-built at <code>~/isaacsim/_build/linux-aarch64/release/</code>,
+BUT <code>omni.kit.livestream.webrtc</code> has no aarch64 wheel on the NVIDIA extension
+registry. Only available for <code>lx64</code> (x86_64 Linux) and <code>wx64</code> (Windows x64).</p>
+<p>Log snippet:
+<div class="highlight"><pre><span></span><code>[isaacsim.exp.full.streaming-5.1.0 -&gt; omni.services.livestream.nvcf-7.2.0]
+dependency: &#39;omni.kit.livestream.webrtc&#39; = { version=&#39;^&#39; } can&#39;t be satisfied.
+Available versions:
+ (none found)
+ Platform incompatible packages:
+     - [omni.kit.livestream.webrtc-7.0.0+107.1.0.lx64.d.cp311]
+     - [omni.kit.livestream.webrtc-7.0.0+107.1.0.wx64.d.cp311]
+     (...)
+</code></pre></div></p>
+<h3 id="vnc-isaac-sim-vulkan">❌ VNC + Isaac Sim (Vulkan)</h3>
+<p>TigerVNC runs on <code>:5901</code> but uses a software X server without GPU acceleration.
+Isaac Sim needs Vulkan surfaces that VNC can't provide.</p>
+<p>Log snippet:
+<div class="highlight"><pre><span></span><code>[Error] [omni.kit.renderer.plugin] advanceCurrentFrame: backbuffers are not initialized!
+[Error] [rtx.denoising.plugin] Failed to compile compute shader: rtx/nrd/PackForNRD.cs.hlsl
+</code></pre></div></p>
+<h3 id="no-physical-display">❌ No physical display</h3>
+<div class="highlight"><pre><span></span><code># cat /sys/class/drm/card*-HDMI*/status
+disconnected
+disconnected
 </code></pre></div>
-<h2 id="mujoco">MuJoCo 🪶</h2>
-<p><strong>Use if</strong>: you're on a Mac, or no NVIDIA GPU, or just want something lightweight.</p>
-<h3 id="pros_1">Pros</h3>
-<ul>
-<li>Runs everywhere (M-series Mac, Linux, Windows)</li>
-<li>Fast — no GPU needed</li>
-<li>Unitree ships G1 MJCF models in <code>unitree_mujoco</code></li>
-<li><code>pip install mujoco</code> and you're done (no 30GB download)</li>
-</ul>
-<h3 id="cons_1">Cons</h3>
-<ul>
-<li>Can't load USDZ directly — must convert to OBJ (done automatically)</li>
-<li>No PBR; scan textures become plain mesh color</li>
-<li>No official DDS bridge — we ship our own (same as Isaac path)</li>
-</ul>
-<h3 id="install_1">Install</h3>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>mujoco<span class="w"> </span>usd-core<span class="w"> </span>cyclonedds
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/unitreerobotics/unitree_mujoco<span class="w"> </span>~/unitree_mujoco
+<h2 id="working-alternatives">Working alternatives</h2>
+<h3 id="option-a-mujoco-on-thor-rtsp-streaming">Option A: MuJoCo on Thor + RTSP streaming</h3>
+<p>MuJoCo's <code>mujoco.Renderer</code> produces frames we can pipe to <code>ffmpeg</code> → RTSP.
+View in Safari / VLC on Mac.</p>
+<p>Setup (TODO):
+<div class="highlight"><pre><span></span><code><span class="c1"># Thor side</span>
+ffmpeg<span class="w"> </span>-f<span class="w"> </span>rawvideo<span class="w"> </span>-pixel_format<span class="w"> </span>rgb24<span class="w"> </span>-video_size<span class="w"> </span>1920x1080<span class="w"> </span>-i<span class="w"> </span>-<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>-c:v<span class="w"> </span>h264_nvmpi<span class="w"> </span>-preset<span class="w"> </span>llhp<span class="w"> </span>-tune<span class="w"> </span>zerolatency<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>-f<span class="w"> </span>rtsp<span class="w"> </span>rtsp://0.0.0.0:8554/live<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Mac side (view)</span>
+open<span class="w"> </span>rtsp://192.168.1.151:8554/live
+</code></pre></div></p>
+<h3 id="option-b-turbovnc-virtualgl-gpu-accelerated-vnc">Option B: TurboVNC + VirtualGL (GPU-accelerated VNC)</h3>
+<p>Needs <code>sudo apt install</code> (requires interactive password right now).
+TurboVNC + VirtualGL give Isaac Sim a GPU-backed X server via VNC.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>virtualgl<span class="w"> </span>turbovnc
+sudo<span class="w"> </span>/opt/VirtualGL/bin/vglserver_config<span class="w">  </span><span class="c1"># GPU grant</span>
+/opt/TurboVNC/bin/vncserver<span class="w"> </span>:2<span class="w"> </span>-geometry<span class="w"> </span>1920x1080<span class="w"> </span>-depth<span class="w"> </span><span class="m">24</span>
+vglrun<span class="w"> </span>-d<span class="w"> </span>:0<span class="w"> </span>~/isaacsim/_build/linux-aarch64/release/isaac-sim.sh
 </code></pre></div>
-<p>Launch:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">NEON_SIM_BACKEND</span><span class="o">=</span>mujoco<span class="w"> </span>./scripts/launch_sim.sh<span class="w"> </span>assets/rooms/my_room.usdz
-</code></pre></div>
-<h2 id="shared-the-dds-bridge">Shared: The DDS bridge</h2>
-<p>Both backends use the same <code>neon_sim/bridge/dds_bridge.py</code> — which means
-your agent code, <code>neon-runtime</code>, doesn't know or care which one you pick.</p>
-<p>Swap between them to taste.</p>
-<h2 id="which-should-i-start-with">Which should I start with?</h2>
+<h3 id="option-c-isaac-sim-headless-mp4">Option C: Isaac Sim headless → MP4</h3>
+<p>Use <code>SimulationApp(headless=True)</code> + <code>isaacsim.sensors.camera.Camera</code> + Replicator
+annotator → write PNG sequence, encode to MP4 with ffmpeg, watch after.</p>
+<p>Good for <strong>demos</strong>, not <strong>live observation</strong>.</p>
+<h3 id="option-d-sim-on-mac-runtime-on-thor-what-we-actually-did-tonight">Option D: Sim on Mac, runtime on Thor (what we actually did tonight)</h3>
 <ul>
-<li><strong>Have a Mac, want to ship tonight</strong> → MuJoCo</li>
-<li><strong>Have a Linux gaming PC with RTX</strong> → Isaac</li>
-<li><strong>Want photoreal demos to show off</strong> → Isaac</li>
-<li><strong>Want something that works on an airplane</strong> → MuJoCo</li>
+<li>Mac: <code>mjpython -m neon_sim.mujoco.stage --room assets/rooms/cagatay_lab.obj</code></li>
+<li>Thor: <code>python -m neon</code> (neon-runtime agent + Telegram listener)</li>
+<li>Both bind to <code>lo0</code>/<code>lo</code> — they don't actually see each other, but:</li>
+<li>Mac demos the SIM LOOP (user → Mac MuJoCo → DDS commands)</li>
+<li>Thor demos the AGENT LOOP (Telegram → neon → G1 DDS → MCU)</li>
+<li>Future: bridge them via zenoh or a DDS router</li>
 </ul>
+<h2 id="thor-software-inventory">Thor software inventory</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Status</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isaac Sim 5.1 (source build)</td>
+<td>✅ built</td>
+<td><code>~/isaacsim/_build/linux-aarch64/release/</code></td>
+</tr>
+<tr>
+<td>MuJoCo 3.7.0</td>
+<td>✅ installed</td>
+<td><code>~/unitree-g1-test/.venv</code></td>
+</tr>
+<tr>
+<td>CycloneDDS 0.10.2</td>
+<td>✅ installed</td>
+<td><code>/usr/local/lib/libddsc.so.0.10.2</code></td>
+</tr>
+<tr>
+<td>unitree_sdk2_python</td>
+<td>✅ installed</td>
+<td>same venv</td>
+</tr>
+<tr>
+<td>neon-sim (cloned)</td>
+<td>✅</td>
+<td><code>~/neon-workspace/neon-sim</code></td>
+</tr>
+<tr>
+<td>neon-runtime (cloned)</td>
+<td>✅</td>
+<td><code>~/neon-workspace/neon-runtime</code></td>
+</tr>
+<tr>
+<td>Polycam lab scan</td>
+<td>✅ on disk</td>
+<td><code>~/neon-workspace/neon-sim/assets/rooms/cagatay_lab.obj</code></td>
+</tr>
+<tr>
+<td>TigerVNC</td>
+<td>✅ running</td>
+<td>port 5901 (no GPU)</td>
+</tr>
+<tr>
+<td>xrdp</td>
+<td>✅ running</td>
+<td>port 3389</td>
+</tr>
+<tr>
+<td>TurboVNC</td>
+<td>❌ not installed</td>
+<td>needs apt (password)</td>
+</tr>
+<tr>
+<td>VirtualGL</td>
+<td>❌ not installed</td>
+<td>needs apt (password)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="commands-validated">Commands validated</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># MuJoCo headless, G1 + lab room, 2s sim</span>
+<span class="nv">$VENV</span>/bin/python<span class="w"> </span>-m<span class="w"> </span>neon_sim.mujoco.stage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--room<span class="w"> </span>assets/rooms/cagatay_lab.obj<span class="w"> </span>--duration<span class="w"> </span><span class="m">2</span><span class="w"> </span>--no-bridge
+
+<span class="c1"># Runs in 0.16s on Thor (12× real-time, vs 27× on Mac M-series)</span>
+</code></pre></div>
 
 
 
