@@ -68,6 +68,19 @@ This auto-detects your backend:
 - Has Isaac Sim? → uses it, preprocesses USDZ → USD
 - Otherwise → falls back to MuJoCo, converts USDZ → OBJ
 
+
+!!! tip "macOS: use `mjpython` for the GUI"
+
+    The MuJoCo interactive viewer needs the Cocoa event loop on macOS,
+    which is provided by `mjpython` (shipped with `pip install mujoco`).
+    Our `launch_sim.sh` auto-detects and uses it. For manual runs:
+
+    ```bash
+    mjpython -m neon_sim.mujoco.stage --room assets/rooms/my_room.obj
+    ```
+
+    Headless runs (with `--duration` or `--headless`) work with regular `python3`.
+
 ## 5. Connect neon-runtime
 
 In another terminal:
