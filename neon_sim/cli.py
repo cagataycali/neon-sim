@@ -5,6 +5,6 @@ from pathlib import Path
 
 
 def convert_cmd():
-    """Run the Polycam → sim-ready USD converter."""
-    here = Path(__file__).parent.parent / "scripts" / "convert_polycam.py"
+    """Run the USDZ → textured MJCF converter (usd2mjcf_with_textures)."""
+    here = Path(__file__).parent.parent / "scripts" / "usd2mjcf_with_textures.py"
     sys.exit(subprocess.call([sys.executable, str(here)] + sys.argv[1:]))

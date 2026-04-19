@@ -27,7 +27,7 @@ Both share the **same DDS bridge** — pick whichever is easier for you.
 
 ```mermaid
 flowchart LR
-    Scan[📱 Polycam scan<br/>your room] --> Conv[convert_polycam.py]
+    Scan[📱 Polycam scan<br/>your room] --> Conv[usd2mjcf_with_textures.py]
     Conv --> Room[🏠 your room<br/>as USD]
     Room --> Sim[Isaac / MuJoCo]
     G1U[Unitree G1 USD] --> Sim

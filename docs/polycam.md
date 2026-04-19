@@ -24,7 +24,7 @@ cp ~/Downloads/my_office.usdz assets/rooms/
 ./scripts/launch_sim.sh assets/rooms/my_office.usdz
 
 # Or preprocess manually to inspect
-python3 scripts/convert_polycam.py assets/rooms/my_office.usdz
+python3 scripts/usd2mjcf_with_textures.py assets/rooms/my_office.usdz
 ```
 
 ## What the preprocessor does

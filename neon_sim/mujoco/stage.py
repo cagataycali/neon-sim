@@ -1,16 +1,15 @@
 """MuJoCo scene loader — runs on Mac (no GPU needed).
 
 Loads the Unitree G1 MJCF from `unitree_mujoco` and injects a Polycam
-scanned room as a decoration mesh. Shares DDS bridge with Isaac backend.
+scanned room (converted via scripts/usd2mjcf_with_textures.py) with full
+per-material textures.
 
 Usage:
-    python3 -m neon_sim.mujoco.stage --room assets/rooms/my_room.obj
+    python3 -m neon_sim.mujoco.stage --room assets/rooms/my_room.usdz
 
-If --room is a USDZ, we'll auto-convert via scripts/usdz_to_obj.py.
-
-Key trick: the composite scene XML is written into the unitree_mujoco
-g1 directory so that the G1's relative paths (to STL mesh files) keep
-resolving.
+If --room is a USDZ, we auto-convert it via the usd2mjcf pipeline
+(LightwheelAI/usd2mjcf + our texture-patch layer). If it's already an
+MJCF XML produced by that pipeline, we use it directly.
 """
 from __future__ import annotations
 import argparse
@@ -18,11 +17,9 @@ import logging
 import os
 import subprocess
 import sys
-import tempfile
 import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import Optional
 
 log = logging.getLogger(__name__)
 
@@ -46,6 +43,9 @@ G1_SCENE_PATHS = {
     ],
 }
 
+REPO_ROOT = Path(__file__).parent.parent.parent
+CONVERTER = REPO_ROOT / "scripts" / "usd2mjcf_with_textures.py"
+
 
 def find_g1_scene(dof: str = "29") -> Path:
     for p in G1_SCENE_PATHS[dof]:
@@ -57,71 +57,136 @@ def find_g1_scene(dof: str = "29") -> Path:
     )
 
 
-def ensure_obj(room_input: Path) -> Path:
-    """If input is USDZ, convert to OBJ. Otherwise pass through."""
-    if room_input.suffix.lower() == ".obj":
+def ensure_room_mjcf(room_input: Path) -> Path:
+    """Resolve --room to a textured MJCF file.
+
+    - If it's already an XML (assumed to be our converter's output), return as-is.
+    - If it's a .usdz or .usd, run usd2mjcf_with_textures.py.
+    """
+    suffix = room_input.suffix.lower()
+    if suffix == ".xml":
         return room_input
 
-    if room_input.suffix.lower() == ".usdz":
-        obj_out = room_input.with_suffix(".obj")
-        if obj_out.exists():
-            log.info(f"Using existing OBJ: {obj_out}")
-            return obj_out
+    if suffix not in (".usdz", ".usd"):
+        raise ValueError(f"Unsupported room format: {suffix} (want .usdz/.usd/.xml)")
 
-        log.info(f"Converting USDZ → OBJ: {room_input}")
-        converter = Path(__file__).parent.parent.parent / "scripts" / "usdz_to_obj.py"
-        result = subprocess.run(
-            [sys.executable, str(converter), str(room_input), "--out", str(obj_out)],
-            check=True, capture_output=True, text=True,
-        )
-        log.info(result.stdout)
-        return obj_out
+    out_dir = room_input.parent / f"{room_input.stem}_lightwheel"
+    mjcf = out_dir / "MJCF" / f"{room_input.stem}.xml"
 
-    raise ValueError(f"Unsupported room format: {room_input.suffix}")
+    if mjcf.exists():
+        log.info(f"✓ Using cached MJCF: {mjcf}")
+        return mjcf
+
+    log.info(f"Converting USD → textured MJCF: {room_input} → {out_dir}")
+    subprocess.run(
+        [sys.executable, str(CONVERTER), str(room_input), "--out-dir", str(out_dir)],
+        check=True,
+    )
+    if not mjcf.exists():
+        raise RuntimeError(f"Converter did not produce expected file: {mjcf}")
+    return mjcf
 
 
 def build_composite_scene(
     g1_scene: Path,
-    room_obj: Path,
-    room_pos: tuple = (0.0, 0.0, -0.5),
+    room_mjcf: Path,
+    room_pos: tuple = (0.0, 0.0, -0.05),
     room_euler_rad: tuple = (1.5708, 0.0, 0.0),  # Y-up → Z-up
     collide: bool = False,
 ) -> Path:
-    """Build a scene XML that combines G1 + the room mesh.
+    """Build a composite scene merging G1 + textured room MJCF.
 
-    Writes the composite INTO the G1 directory so all relative paths
-    (to STL meshes, texture files) continue to resolve.
-
-    Args:
-        collide: If True, room participates in physics. Start with False
-                 so the robot has a stable floor to land on first.
+    Writes the composite into the G1 directory so G1 relative mesh paths
+    keep resolving. Rewrites the room's mesh/texture `file=` attributes to
+    absolute paths so they resolve from the G1 directory too.
     """
-    g1_dir = g1_scene.parent
-
     tree = ET.parse(str(g1_scene))
     root = tree.getroot()
 
-    # Register room mesh
+    # Parse the room MJCF
+    room_tree = ET.parse(str(room_mjcf))
+    room_root = room_tree.getroot()
+    room_dir = room_mjcf.parent
+
+    # -- Merge <asset> (textures, materials, meshes) --
     asset = root.find("asset")
-    mesh = ET.SubElement(asset, "mesh")
-    mesh.set("name", "neon_room")
-    mesh.set("file", str(room_obj.resolve()))
+    if asset is None:
+        asset = ET.SubElement(root, "asset")
 
-    # Add room body
+    room_asset = room_root.find("asset")
+    for child in list(room_asset):
+        # Rewrite relative file paths to absolute (so they resolve from G1 dir)
+        if "file" in child.attrib:
+            f = child.attrib["file"]
+            if not Path(f).is_absolute():
+                child.set("file", str((room_dir / f).resolve()))
+        # Namespace to avoid collisions with G1 assets
+        if "name" in child.attrib:
+            child.set("name", f"neon_room_{child.attrib['name']}")
+        # Mesh/material cross-references inside <geom> need the same prefix —
+        # handled below. For <material texture="..."> rewrite too:
+        if child.tag == "material" and "texture" in child.attrib:
+            child.set("texture", f"neon_room_{child.attrib['texture']}")
+        asset.append(child)
+
+    # -- Improve headlight for textured scans --
+    visual = root.find("visual")
+    if visual is None:
+        visual = ET.SubElement(root, "visual")
+    hl = visual.find("headlight")
+    if hl is None:
+        hl = ET.SubElement(visual, "headlight")
+    hl.set("diffuse", "0.6 0.6 0.6")
+    hl.set("ambient", "0.3 0.3 0.3")
+    hl.set("specular", "0 0 0")
+
+    # -- Inject room body into worldbody --
     worldbody = root.find("worldbody")
-    body = ET.SubElement(worldbody, "body")
-    body.set("name", "neon_room_body")
-    body.set("pos", f"{room_pos[0]} {room_pos[1]} {room_pos[2]}")
-    body.set("euler", f"{room_euler_rad[0]} {room_euler_rad[1]} {room_euler_rad[2]}")
-    geom = ET.SubElement(body, "geom")
-    geom.set("name", "neon_room_geom")
-    geom.set("type", "mesh")
-    geom.set("mesh", "neon_room")
-    geom.set("contype", "1" if collide else "0")
-    geom.set("conaffinity", "1" if collide else "0")
-    geom.set("rgba", "0.85 0.75 0.65 0.6")
+    room_body = ET.SubElement(worldbody, "body")
+    room_body.set("name", "neon_room")
+    room_body.set("pos", f"{room_pos[0]} {room_pos[1]} {room_pos[2]}")
+    room_body.set("euler", f"{room_euler_rad[0]} {room_euler_rad[1]} {room_euler_rad[2]}")
 
-    out = g1_dir / "neon_sim_composite.xml"
+    room_world = room_root.find("worldbody")
+    if room_world is not None:
+        for geom in room_world.iter("geom"):
+            new_geom = ET.SubElement(room_body, "geom")
+            for k, v in geom.attrib.items():
+                if k == "class":
+                    continue  # defaults don't propagate across merged scenes
+                if k == "mesh":
+                    new_geom.set(k, f"neon_room_{v}")
+                elif k == "material":
+                    new_geom.set(k, f"neon_room_{v}")
+                else:
+                    new_geom.set(k, v)
+            # Bake in what class=visual would have set
+            if "type" not in new_geom.attrib: new_geom.set("type", "mesh")
+            if "group" not in new_geom.attrib: new_geom.set("group", "1")
+            new_geom.set("contype", "1" if collide else "0")
+            new_geom.set("conaffinity", "1" if collide else "0")
+
+    # If no geoms found in worldbody, fall through (LightwheelAI sometimes puts
+    # geoms directly under <worldbody>/<body>). Try one more level:
+    if len(list(room_body)) == 0 and room_world is not None:
+        for body in room_world.iter("body"):
+            for geom in body.iter("geom"):
+                new_geom = ET.SubElement(room_body, "geom")
+                for k, v in geom.attrib.items():
+                    if k == "class":
+                        continue  # defaults don't propagate across merged scenes
+                    if k == "mesh":
+                        new_geom.set(k, f"neon_room_{v}")
+                    elif k == "material":
+                        new_geom.set(k, f"neon_room_{v}")
+                    else:
+                        new_geom.set(k, v)
+                if "type" not in new_geom.attrib: new_geom.set("type", "mesh")
+                if "group" not in new_geom.attrib: new_geom.set("group", "1")
+                new_geom.set("contype", "1" if collide else "0")
+                new_geom.set("conaffinity", "1" if collide else "0")
+
+    out = g1_scene.parent / "neon_sim_composite.xml"
     tree.write(str(out))
     return out
 
@@ -147,7 +212,7 @@ def make_robot_adapter(model: mujoco.MjModel, data: mujoco.MjData):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--room", required=True, help="Path to room (.obj or .usdz)")
+    ap.add_argument("--room", required=True, help="Path to room (.usdz / .usd / .xml)")
     ap.add_argument("--dof", choices=["23", "29"], default="29")
     ap.add_argument("--headless", action="store_true",
                     help="Run without GUI (useful for CI / headless boxes)")
@@ -164,20 +229,20 @@ def main():
         sys.exit(f"❌ Room file not found: {room_input}")
 
     log.info(f"🏠 Room: {room_input}")
-    room_obj = ensure_obj(room_input)
-    log.info(f"   OBJ: {room_obj}")
+    room_mjcf = ensure_room_mjcf(room_input)
+    log.info(f"   MJCF: {room_mjcf}")
 
     g1_scene = find_g1_scene(args.dof)
     log.info(f"🤖 G1 {args.dof}-DoF: {g1_scene}")
 
-    composite = build_composite_scene(g1_scene, room_obj, collide=args.collide)
+    composite = build_composite_scene(g1_scene, room_mjcf, collide=args.collide)
     log.info(f"🔀 Composite: {composite}")
 
     model = mujoco.MjModel.from_xml_path(str(composite))
     data = mujoco.MjData(model)
     log.info(
         f"   {model.nbody} bodies, {model.nu} actuators, "
-        f"{model.ngeom} geoms, {model.nmesh} meshes"
+        f"{model.ngeom} geoms, {model.nmesh} meshes, {model.ntex} textures"
     )
 
     # DDS bridge (optional)
@@ -197,7 +262,6 @@ def main():
 
     # Run the simulation
     if args.duration > 0:
-        # Time-limited headless
         log.info(f"▶️  Running {args.duration}s headless...")
         start = time.time()
         steps = int(args.duration / model.opt.timestep)
@@ -209,7 +273,6 @@ def main():
                 log.info(f"   step {i}/{steps}, sim time {data.time:.2f}s")
         log.info(f"   done: {data.time:.2f}s simulated in {time.time()-start:.2f}s real")
     elif args.headless:
-        # Infinite headless
         log.info("▶️  Running headless (Ctrl+C to stop)")
         try:
             while True:
@@ -219,13 +282,11 @@ def main():
         except KeyboardInterrupt:
             log.info("interrupted")
     else:
-        # Interactive viewer
         log.info("▶️  Launching interactive viewer (close window to exit)")
         with mujoco.viewer.launch_passive(model, data) as viewer:
-            # Initial camera
-            viewer.cam.distance = 4.0
-            viewer.cam.elevation = -15
-
+            viewer.cam.distance = 4.5
+            viewer.cam.elevation = -20
+            viewer.cam.azimuth = 135
             while viewer.is_running():
                 mujoco.mj_step(model, data)
                 if bridge:

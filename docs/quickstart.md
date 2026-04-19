@@ -103,7 +103,7 @@ sides of that conversation.
 | "G1 USD not found" | Missing Isaac Sim robot assets | Set `ISAAC_ASSETS_PATH` or copy to `assets/robots/g1.usd` |
 | "G1 MJCF not found" | No unitree_mujoco clone | `git clone https://github.com/unitreerobotics/unitree_mujoco ~/unitree_mujoco` |
 | Robot spawns inside a wall | Room origin offset | Pass `--spawn-x 0 --spawn-y 0 --spawn-z 1.0` to stage |
-| Robot falls through floor | Collider approximation wrong | Edit `convert_polycam.py` → use `convex_decomposition` |
+| Robot falls through floor | Collider approximation wrong | Rerun converter with --generate-collision flag |
 | DDS bridge "address in use" | Old instance running | `killall python3` or reboot |
 
 See [Troubleshooting](preprocessing.md#troubleshooting) for more.

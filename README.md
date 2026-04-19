@@ -58,7 +58,7 @@ cd ../neon-runtime
 | `neon_sim/mujoco/` | (alt) MuJoCo backend — no GPU needed |
 | `neon_sim/assets/rooms/` | Your Polycam scans |
 | `neon_sim/assets/robots/` | G1 USD model (fetched from Unitree) |
-| `scripts/convert_polycam.py` | Preprocesses a raw Polycam USDZ for sim (decimation, colliders) |
+| `scripts/usd2mjcf_with_textures.py` | Preprocesses a raw Polycam USDZ for sim (decimation, colliders) |
 | `scripts/launch_sim.sh` | One-command bring-up |
 
 ## Why not just use MuJoCo?
