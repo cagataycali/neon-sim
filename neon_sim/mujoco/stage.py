@@ -260,6 +260,16 @@ def main():
         except Exception as e:
             log.warning(f"DDS bridge unavailable: {e} — continuing without")
 
+    # Standard ROS2 topic bridge (/joint_states, /odom, /tf, /imu)
+    ros2_bridge = None
+    if not args.no_bridge:
+        try:
+            from neon_sim.bridge.ros2_bridge import ROS2Bridge
+            ros2_bridge = ROS2Bridge(model, data)
+            ros2_bridge.start()
+        except Exception as e:
+            log.warning(f"ROS2 bridge unavailable: {e} — continuing without")
+
     # Run the simulation
     if args.duration > 0:
         log.info(f"▶️  Running {args.duration}s headless...")
@@ -269,6 +279,8 @@ def main():
             mujoco.mj_step(model, data)
             if bridge:
                 bridge.tick()
+            if ros2_bridge:
+                ros2_bridge.tick()
             if i % 5000 == 0:
                 log.info(f"   step {i}/{steps}, sim time {data.time:.2f}s")
         log.info(f"   done: {data.time:.2f}s simulated in {time.time()-start:.2f}s real")
@@ -279,6 +291,8 @@ def main():
                 mujoco.mj_step(model, data)
                 if bridge:
                     bridge.tick()
+                if ros2_bridge:
+                    ros2_bridge.tick()
         except KeyboardInterrupt:
             log.info("interrupted")
     else:
@@ -291,10 +305,14 @@ def main():
                 mujoco.mj_step(model, data)
                 if bridge:
                     bridge.tick()
+                if ros2_bridge:
+                    ros2_bridge.tick()
                 viewer.sync()
 
     if bridge:
         bridge.stop()
+    if ros2_bridge:
+        ros2_bridge.stop()
 
 
 if __name__ == "__main__":
